@@ -25,20 +25,22 @@ const loadStore = () => {
   throw new Error("Not implemented yet");
 };
 
-const getTodos = (filter = Filters.All) => {
-  switch (filter) {
-    case Filters.All:
-      return [...state.todos];
-    case Filters.Completed:
-      return state.todos.filter(todo=> todo.done);
-    case Filters.Pending:
-      return state.todos.filter(todo => !todo.done);
+const getTodos = ( filter = Filters.All ) => {
+    
+  switch( filter ) {
+      case Filters.All:
+          return [...state.todos];
+      
+      case Filters.Completed:
+          return state.todos.filter( todo => todo.done );
 
-    default:
-        throw new Error(`Option ${filter} is not valid.`);
+      case Filters.Pending:
+          return state.todos.filter( todo => !todo.done );
 
+      default:
+          throw new Error(`Option ${ filter } is not valid.`);
   }
-};
+}
 
 /**
  *
@@ -73,7 +75,7 @@ const deleteTodo = (todoId) => {
 };
 
 const deleteCompleted = () => {
-    state.todos=state.todos.filter(todo=>todo.done);
+    state.todos=state.todos.filter(todo=>!todo.done);
 };
 
 /***
