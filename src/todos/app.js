@@ -17,7 +17,7 @@ const ElementIDs={
 export const App=(elementId)=>{
 
 
-const dislayTodos=()=>{
+const displayTodos=()=>{
     const todos=todoStore.getTodos(todoStore.getCurrentFilter());
     renderTodos(ElementIDs.TodoList,todos);
   
@@ -32,7 +32,7 @@ const dislayTodos=()=>{
         const app=document.createElement('div');
         app.innerHTML=html;
         document.querySelector(elementId).append(app);
-        dislayTodos();
+        displayTodos();
 
     })();
 
@@ -40,6 +40,7 @@ const dislayTodos=()=>{
     //Referencias HTML
 
     const newDescriptionInput=document.querySelector(ElementIDs.NewTodoInput);
+    const todoListUl=document.querySelector(ElementIDs.TodoList);
 
     //Listeners
     newDescriptionInput.addEventListener('keyup',(event)=>{
@@ -49,8 +50,29 @@ const dislayTodos=()=>{
         return;
 
       todoStore.addTodo(event.target.value);
-      dislayTodos();
+      displayTodos();
       event.target.value="";
     })
+
+    todoListUl.addEventListener('click', (event) => {
+      const element = event.target.closest('[data-id]');
+      todoStore.toggleTodo( element.getAttribute('data-id') );
+      displayTodos();
+  });
+
+
+  todoListUl.addEventListener('click', (event) => {
+    const isDestroyElement = event.target.className==='destroy';
+    const element = event.target.closest('[data-id]');
+    if(!isDestroyElement||!element )
+      return;
+
+    todoStore.deleteTodo(element.getAttribute('data-id'));
+    displayTodos();
+
+    
+   
+});
+
 
 }
