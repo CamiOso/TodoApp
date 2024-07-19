@@ -9,8 +9,10 @@ import {renderTodos} from './use-cases/render-todos';
 
 
 const ElementIDs={
+    clearCompletedButton:'.clear-completed',
     TodoList:'.todo-list',
     NewTodoInput:'#new-todo-input',
+  
 
 }
 
@@ -41,6 +43,7 @@ const displayTodos=()=>{
 
     const newDescriptionInput=document.querySelector(ElementIDs.NewTodoInput);
     const todoListUl=document.querySelector(ElementIDs.TodoList);
+    const clearCompletedButton=document.querySelector(ElementIDs.clearCompletedButton);
 
     //Listeners
     newDescriptionInput.addEventListener('keyup',(event)=>{
@@ -72,6 +75,11 @@ const displayTodos=()=>{
 
     
    
+});
+
+clearCompletedButton.addEventListener('click',()=>{
+  todoStore.deleteCompleted();
+  displayTodos();
 });
 
 
