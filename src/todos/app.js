@@ -10,7 +10,7 @@ import {renderTodos} from './use-cases/render-todos';
 
 const ElementIDs={
     TodoList:'.todo-list',
-
+    NewTodoInput:'#new-todo-input',
 
 }
 
@@ -35,5 +35,22 @@ const dislayTodos=()=>{
         dislayTodos();
 
     })();
+
+
+    //Referencias HTML
+
+    const newDescriptionInput=document.querySelector(ElementIDs.NewTodoInput);
+
+    //Listeners
+    newDescriptionInput.addEventListener('keyup',(event)=>{
+      if(event.keyCode!==13)
+        return;
+      if(event.target.value.trim().length===0)
+        return;
+
+      todoStore.addTodo(event.target.value);
+      dislayTodos();
+      event.target.value="";
+    })
 
 }
